@@ -1,0 +1,6 @@
+.hover:hover {
+    background-color: rgb(223, 221, 221);
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
