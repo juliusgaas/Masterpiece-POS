@@ -1,0 +1,153 @@
+/* =========================
+   HIDE RECEIPT ON SCREEN
+========================= */
+
+.receipt-print {
+    display: none;
+}
+
+
+/* =========================
+   PRINT
+========================= */
+
+@media print {
+
+    /* Hide everything */
+    body * {
+        visibility: hidden !important;
+    }
+
+
+    /* Show receipt */
+    .receipt-print,
+    .receipt-print * {
+        visibility: visible !important;
+    }
+
+
+    /* Receipt container */
+    .receipt-print {
+
+        display: block !important;
+
+        position: absolute;
+
+        left: 0;
+        top: 0;
+
+        width: 80mm;
+
+        margin: 0;
+        padding: 0;
+    }
+
+
+    /* Receipt */
+    .receipt {
+
+        width: 80mm;
+
+        padding: 5mm;
+
+        box-sizing: border-box;
+
+        font-family:
+            "Courier New",
+            monospace;
+
+        font-size: 12px;
+
+        line-height: 1.4;
+
+        color: #000;
+
+        background: #fff;
+    }
+
+
+    /* Center */
+    .receipt-center {
+
+        text-align: center;
+    }
+
+
+    /* Store name */
+    .receipt h2 {
+
+        margin: 0;
+
+        font-size: 18px;
+
+        font-weight: bold;
+    }
+
+
+    /* Dashed line */
+    .receipt-line {
+
+        width: 100%;
+
+        white-space: nowrap;
+
+        overflow: hidden;
+
+        margin: 6px 0;
+    }
+
+
+    /* Item */
+    .receipt-item {
+
+        margin-bottom: 5px;
+    }
+
+
+    .receipt-item-name {
+
+        font-weight: bold;
+
+        word-break: break-word;
+    }
+
+
+    /* Item row */
+    .receipt-item-row {
+
+        display: flex;
+
+        justify-content: space-between;
+
+        gap: 10px;
+    }
+
+
+    /* Normal row */
+    .receipt-row {
+
+        display: flex;
+
+        justify-content: space-between;
+
+        gap: 10px;
+    }
+
+
+    /* Total */
+    .receipt-total {
+
+        font-size: 15px;
+
+        margin: 5px 0;
+    }
+
+
+    /* Remove browser headers/footer */
+    @page {
+
+        size: 80mm auto;
+
+        margin: 0;
+    }
+}

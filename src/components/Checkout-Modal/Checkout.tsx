@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Modal, Button, Form, Alert } from "react-bootstrap";
+import PrintReceipt from "../print-receipt/print-receipt.component";
 
 export default function CheckoutModal({
     show,

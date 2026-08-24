@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import ProductGrid from "../components/ProductGrid/ProductGrid";
 import Pagination from "../components/Pagination/Pagination";
 import Cart from "../components/Cart/Cart";
+import PrintReceipt from "../components/print-receipt/print-receipt.component";
 
 interface UserToken {
     id: number;
@@ -255,6 +256,7 @@ function NewSale() {
                            
                         
                     </div>
+
                 </div>
             </div>
         </div>

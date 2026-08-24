@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import './cart.css';
 import CheckoutModal from '../Checkout-Modal/Checkout';
+import PrintReceipt from '../print-receipt/print-receipt.component';
 
 interface CartItem {
     id: number;
@@ -8,6 +9,15 @@ interface CartItem {
     selling_price: string;
     quantity: number;
     subtotal: number;
+}
+
+interface Sale {
+    items: CartItem[];
+    total: number;
+    paymentMethod: string;
+    cashReceived: number;
+    change: number;
+    date: string;
 }
 
 interface CartProps {
@@ -26,6 +36,9 @@ export default function Cart({
     onClear
 }: CartProps) {
     const [showCheckout, setShowCheckout] = useState(false);
+    // Receipt nga i-print
+    const [saleToPrint, setSaleToPrint] = useState<Sale | null>(null);
+
     const total = items.reduce(
         (sum, item) => sum + item.subtotal,
         0
@@ -37,7 +50,16 @@ export default function Cart({
     };
     const completeSale = (payment) => {
         console.log(payment);
-
+         // Create sale BEFORE clearing cart
+        const sale: Sale = {
+            items: [...items],
+            total: total,
+            paymentMethod: payment.paymentMethod,
+            cashReceived: payment.cashReceived,
+            change: payment.change,
+            date: new Date().toLocaleString()
+        };
+        
         /*
         {
             paymentMethod: "Cash",
@@ -45,6 +67,10 @@ export default function Cart({
             change: 660
         }
         */
+
+        // Set receipt
+        setSaleToPrint(sale);
+
 
         // TODO:
         // Save Sale API
@@ -173,6 +199,20 @@ export default function Cart({
                             onComplete={completeSale}
                         />
             </div>
+            
+                    {saleToPrint && (
+
+                        <PrintReceipt
+                            sale={saleToPrint}
+                            onPrinted={() => {
+
+                                // Remove receipt component
+                                setSaleToPrint(null);
+
+                            }}
+                        />
+
+            )}
 
         </div>
     );
