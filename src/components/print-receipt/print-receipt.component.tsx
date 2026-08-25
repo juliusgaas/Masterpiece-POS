@@ -1,4 +1,6 @@
+
 import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import './PrintReceipt.css';
 
 interface CartItem {
@@ -29,59 +31,65 @@ export default function PrintReceipt({
 }: PrintReceiptProps) {
 
     useEffect(() => {
+
         const timer = setTimeout(() => {
+
             window.print();
-            if (onPrinted) {
-                onPrinted();
-            }
+
         }, 300);
 
         return () => {
             clearTimeout(timer);
         };
 
-    }, [sale, onPrinted]);
+    }, [sale]);
 
-    return (
+
+    useEffect(() => {
+
+        const handleAfterPrint = () => {
+            if (onPrinted) {
+                onPrinted();
+            }
+        };
+        window.addEventListener(
+            'afterprint',
+            handleAfterPrint
+        );
+        return () => {
+            window.removeEventListener(
+                'afterprint',
+                handleAfterPrint
+            );
+        };
+    }, [onPrinted]);
+
+
+    const receipt = (
         <div className="receipt-print">
-
             <div className="receipt">
-
-                {/* STORE */}
                 <div className="receipt-center">
-
                     <h2>
                         MY POS
                     </h2>
-
                     <div>
                         Store Address
                     </div>
-
                     <div>
                         Contact Number
                     </div>
-
                 </div>
 
 
                 <div className="receipt-line">
                     --------------------------------
                 </div>
-
-
-                {/* DATE */}
                 <div>
                     Date: {sale.date}
                 </div>
-
-
                 <div className="receipt-line">
                     --------------------------------
                 </div>
-
-
-                {/* ITEMS */}
                 {sale.items.map(item => (
 
                     <div
@@ -90,11 +98,8 @@ export default function PrintReceipt({
                     >
 
                         <div className="receipt-item-name">
-
                             {item.name}
-
                         </div>
-
 
                         <div className="receipt-item-row">
 
@@ -105,10 +110,8 @@ export default function PrintReceipt({
                                 ).toFixed(2)}
                             </span>
 
-
                             <span>
-                                ₱
-                                {item.subtotal.toFixed(2)}
+                                ₱{item.subtotal.toFixed(2)}
                             </span>
 
                         </div>
@@ -117,13 +120,11 @@ export default function PrintReceipt({
 
                 ))}
 
-
                 <div className="receipt-line">
                     --------------------------------
                 </div>
 
 
-                {/* TOTAL */}
                 <div className="receipt-row receipt-total">
 
                     <strong>
@@ -137,7 +138,6 @@ export default function PrintReceipt({
                 </div>
 
 
-                {/* PAYMENT */}
                 <div className="receipt-row">
 
                     <span>
@@ -151,7 +151,6 @@ export default function PrintReceipt({
                 </div>
 
 
-                {/* CASH */}
                 <div className="receipt-row">
 
                     <span>
@@ -159,14 +158,12 @@ export default function PrintReceipt({
                     </span>
 
                     <span>
-                        ₱
-                        {sale.cashReceived.toFixed(2)}
+                        ₱{sale.cashReceived.toFixed(2)}
                     </span>
 
                 </div>
 
 
-                {/* CHANGE */}
                 <div className="receipt-row">
 
                     <span>
@@ -174,8 +171,7 @@ export default function PrintReceipt({
                     </span>
 
                     <span>
-                        ₱
-                        {sale.change.toFixed(2)}
+                        ₱{sale.change.toFixed(2)}
                     </span>
 
                 </div>
@@ -186,7 +182,6 @@ export default function PrintReceipt({
                 </div>
 
 
-                {/* THANK YOU */}
                 <div className="receipt-center">
 
                     <strong>
@@ -202,6 +197,18 @@ export default function PrintReceipt({
             </div>
 
         </div>
+    );
 
+
+    /*
+     * IMPORTANT:
+     * Render directly to body,
+     * outside Cart DOM.
+     */
+
+    return createPortal(
+        receipt,
+        document.body
     );
 }
+

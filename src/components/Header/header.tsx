@@ -77,7 +77,7 @@ const FONT_MONO = "'IBM Plex Mono', monospace";
                   display: "inline-block",
                 }}
               />
-              Online
+              {online ? "Online" : "Offline"}
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13 }}>
               <div

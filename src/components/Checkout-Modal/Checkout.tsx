@@ -1,17 +1,27 @@
 import { useEffect, useRef, useState } from "react";
 import { Modal, Button, Form, Alert } from "react-bootstrap";
-import PrintReceipt from "../print-receipt/print-receipt.component";
+
+interface CheckoutModalProps {
+    show: boolean;
+    onClose: () => void;
+    total: number;
+    onComplete: (payment: {
+        paymentMethod: string;
+        cashReceived: number;
+        change: number;
+    }) => void;
+}
 
 export default function CheckoutModal({
     show,
     onClose,
     total,
     onComplete
-}) {
+}: CheckoutModalProps) {
 
     const [paymentMethod, setPaymentMethod] = useState("Cash");
     const [cashReceived, setCashReceived] = useState("");
-    const cashInputRef = useRef(null);
+    const cashInputRef = useRef<HTMLInputElement>(null);
 
     const cash = Number(cashReceived) || 0;
     const change = cash >= total ? cash - total : 0;

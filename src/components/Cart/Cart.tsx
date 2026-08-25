@@ -48,7 +48,7 @@ export default function Cart({
         console.log("Checkout opened");
         setShowCheckout(true);
     };
-    const completeSale = (payment) => {
+    const completeSale = (payment:any) => {
         console.log(payment);
          // Create sale BEFORE clearing cart
         const sale: Sale = {
@@ -77,13 +77,13 @@ export default function Cart({
         // Print Receipt
         // Clear Cart
 
-        onClear();
+       
 
         setShowCheckout(false);
     };
 
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e:any) => {
       if (e.key === "F9") {
         e.preventDefault(); // para dili mo-trigger ang browser default
         openCheckout();
@@ -108,6 +108,7 @@ export default function Cart({
   }, []);
 
     return (
+        <>
         <div className="card shadow h-100" >
             <div className="card-header">
                 <h5 className="mb-0">Current Sales</h5>
@@ -199,21 +200,19 @@ export default function Cart({
                             onComplete={completeSale}
                         />
             </div>
-            
-                    {saleToPrint && (
-
-                        <PrintReceipt
-                            sale={saleToPrint}
-                            onPrinted={() => {
-
-                                // Remove receipt component
-                                setSaleToPrint(null);
-
-                            }}
-                        />
-
-            )}
-
         </div>
+
+        {saleToPrint && (
+            <PrintReceipt
+                sale={saleToPrint}
+                onPrinted={() => {
+                     onClear();
+                    // Remove receipt component
+                    setSaleToPrint(null);
+
+                }}
+            />
+        )}
+        </>
     );
 }
