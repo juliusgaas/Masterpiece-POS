@@ -3,7 +3,7 @@ name: Deploy React PWA
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build-and-deploy:
