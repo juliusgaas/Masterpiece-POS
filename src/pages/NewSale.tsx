@@ -66,6 +66,7 @@ function NewSale() {
                 if (response.data.success) {
                     await db.products.clear();
                     await db.products.bulkPut(response.data.data);
+                    loadProducts(page);
                 }
             }
         }catch(error){
