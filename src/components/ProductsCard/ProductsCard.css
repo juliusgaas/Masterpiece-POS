@@ -1,0 +1,19 @@
+.product-card:hover {
+    /* background-image: url('../../assets/icons8-box-64.png'); */
+    /* background-size: auto;
+    background-position: top right;
+    background-repeat: no-repeat; */
+    cursor: pointer;
+   
+}
+.product-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('../../assets/icons8-box-64.png');
+    background-size: auto;
+    background-position: top right;
+    background-repeat: no-repeat;
+    opacity: 0.2;
+    pointer-events: none;
+}
