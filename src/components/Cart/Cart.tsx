@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './cart.css';
 import CheckoutModal from '../Checkout-Modal/Checkout';
 import PrintReceipt from '../print-receipt/print-receipt.component';
+import { useNavigate } from 'react-router-dom';
 
 interface CartItem {
     id: number;
@@ -35,6 +36,7 @@ export default function Cart({
     onRemove,
     onClear
 }: CartProps) {
+     const navigate = useNavigate();
     const [showCheckout, setShowCheckout] = useState(false);
     // Receipt nga i-print
     const [saleToPrint, setSaleToPrint] = useState<Sale | null>(null);
@@ -81,23 +83,30 @@ export default function Cart({
 
         setShowCheckout(false);
     };
-
+    const goToQuotation = () => {
+       
+        navigate("/quotation");
+    };
   useEffect(() => {
     const handleKeyDown = (e:any) => {
-      if (e.key === "F9") {
-        e.preventDefault(); // para dili mo-trigger ang browser default
-        openCheckout();
-      }
+        if (e.key === "F8") {
+            e.preventDefault();
+            goToQuotation();
+        }
+        if (e.key === "F9") {
+            e.preventDefault(); // para dili mo-trigger ang browser default
+            openCheckout();
+        }
 
-      if(e.key === "Escape"){
-        e.preventDefault(); 
-        setShowCheckout(false);
-      }
+        if(e.key === "Escape"){
+            e.preventDefault(); 
+            setShowCheckout(false);
+        }
 
-      if(e.key === "F10"){
-        e.preventDefault(); 
-        onClear();
-      }
+        if(e.key === "F10"){
+            e.preventDefault(); 
+            onClear();
+        }
     };
 
     window.addEventListener("keydown", handleKeyDown);

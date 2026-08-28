@@ -1,5 +1,3 @@
-import { jwtDecode } from "jwt-decode";
-import Header from "../components/Header/header";
 import useOnlineStatus from "../hooks/useOnlineStatus";
 import SearchBar from "../components/SearchBar/searchbar";
 import { ProductService } from "../services/ProductService";
@@ -10,19 +8,10 @@ import Pagination from "../components/Pagination/Pagination";
 import Cart from "../components/Cart/Cart";
 
 
-interface UserToken {
-    id: number;
-    username: string;
-    fullname: string;
-    role: string;
-    exp: number;
-}
 
 function NewSale() {
     const online = useOnlineStatus();
-    const token = localStorage.getItem("token");
-    
-    let user: UserToken | null = null;
+   
     const [products, setProducts] = useState<any[]>([]);
     const [search, setSearch] = useState("");
     const [page, setPage] = useState(1);
@@ -30,14 +19,7 @@ function NewSale() {
 
     const PAGE_SIZE = 12;
 
-    if (token) {
-        user = jwtDecode<UserToken>(token);
-    }
-    const initials = (user?.username ?? "")
-    .split(" ")
-    .filter(Boolean)
-    .map(name => name.charAt(0).toUpperCase())
-    .join("");
+    
 
     // Fetch products and update local database
     useEffect(() => {
@@ -204,12 +186,7 @@ function NewSale() {
     return (
         <div className="app">
 
-            <Header
-                online={online}
-                username={user?.username ?? ""}
-                initials={initials}
-                terminal="Terminal 01"
-            />
+           
             <div className="container-fluid">
                 <div className="row content-container" style={{ paddingTop: 20 }}>
                     <div className="col-md-8">
@@ -236,7 +213,7 @@ function NewSale() {
                         <div className="col-md-12 ">
                             <div className="card shadow" >
                                 <div className="card-body text-primary">
-                                    F9 - Checkout | F10 - Clear Cart | Esc - Close Checkout
+                                    F8 - Quotations  | F9 - Checkout | F10 - Clear Cart | Esc - Close Checkout
                                 </div>
                             </div>
                         </div>
