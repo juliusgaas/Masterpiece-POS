@@ -199,7 +199,7 @@ export default function Cart({
                         </div>
 
                         <button className="btn btn-success w-100 mt-3" onClick={openCheckout}>
-                            Checkout
+                            <b>F9</b> - Checkout
                         </button>
 
                         <CheckoutModal

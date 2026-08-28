@@ -1,3 +1,4 @@
+import './ProductsCard.css'
 interface Product {
     id: number;
     name: string;
@@ -24,6 +25,7 @@ export default function ProductCard({ product, onClick }: Props) {
                 </div>
 
                 <small>Stock: {product.stock_qty}</small>
+               
             </div>
         </div>
     );
