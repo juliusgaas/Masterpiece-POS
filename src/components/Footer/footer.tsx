@@ -128,17 +128,12 @@ export default function Footer({
 
                 <div className="footer-divider"></div>
 
-
                 {/* DATE */}
 
                 <div className="footer-datetime">
-
                     <CalendarDays size={15} />
-
                     <span>{date}</span>
-
-                    <strong>{time}</strong>
-
+                    {/* <strong>{time}</strong> */}
                 </div>
 
             </div>

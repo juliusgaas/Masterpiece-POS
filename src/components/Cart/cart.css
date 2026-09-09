@@ -222,10 +222,11 @@
 
     grid-template-columns:
         27px
-        minmax(150px, 1fr)
+        minmax(100px, 1fr)
         66px
         82px
         78px
+        50px
         22px;
 
     align-items: center;
@@ -274,6 +275,7 @@
         66px
         82px
         78px
+        50px
         22px;
 
     align-items: center;
@@ -363,9 +365,9 @@
    PRICE / TOTAL
 ========================================= */
 
-.product-price,
+.product-price, .product-oum,
 .product-total {
-    text-align: right;
+    text-align: center;
 
     font-size: 10px;
     font-weight: 600;
@@ -679,7 +681,7 @@
     .cart-table-header,
     .cart-product {
         grid-template-columns:
-            25px
+            20px
             minmax(130px, 1fr)
             60px
             75px

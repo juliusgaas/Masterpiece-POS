@@ -227,6 +227,7 @@ export default function Cart({
                     <span className="col-product">Product</span>
                     <span className="col-price">Price</span>
                     <span className="col-qty">Qty</span>
+                    <span className="col-qty">OUM</span>
                     <span className="col-total">Total</span>
                     <span className="col-delete"></span>
 
@@ -339,7 +340,11 @@ export default function Cart({
                                     </button>
 
                                 </div>
+                                {/* OUM */}
 
+                                <div className="product-oum">
+                                   <span>pcs</span> 
+                                </div>
 
                                 {/* TOTAL */}
 
