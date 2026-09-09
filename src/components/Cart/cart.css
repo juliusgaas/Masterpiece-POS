@@ -256,19 +256,14 @@
 
 .cart-items {
     flex: 1;
-
     min-height: 0;
-
     overflow-y: auto;
-
     scrollbar-width: thin;
 }
 
 .cart-product {
     min-height: 62px;
-
     display: grid;
-
     grid-template-columns:
         27px
         minmax(150px, 1fr)
@@ -277,13 +272,9 @@
         78px
         50px
         22px;
-
     align-items: center;
-
     padding: 6px 10px;
-
     border-bottom: 1px solid #edf0ee;
-
     transition: background 0.12s ease;
 }
 
