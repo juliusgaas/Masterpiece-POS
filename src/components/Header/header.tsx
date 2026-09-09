@@ -1,4 +1,5 @@
 import "./Header.css";
+import reactLogo from "../../assets/react.svg";
 import {
   ChevronDown,
   Bell,
@@ -20,7 +21,7 @@ function Header({
       <div className="header-left">
         <div className="brand">
           <div className="brand-logo">
-            <img src="../../react.svg" alt="Logo" />
+            <img src={reactLogo} alt="Logo" />
             {/* <div className="logo-shape">
               <img src="../../assets/icons8-box-64.png" alt="Logo" />
               <span></span>
