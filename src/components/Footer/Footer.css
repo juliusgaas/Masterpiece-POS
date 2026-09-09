@@ -1,0 +1,238 @@
+.pos-footer {
+    width: 100%;
+    height: 38px;
+
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 14px;
+
+    background: #ffffff;
+
+    border-top: 1px solid #e2e7e4;
+
+    color: #3d4943;
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    flex-shrink: 0;
+
+    font-size: 10px;
+}
+
+
+/* =========================================
+   LEFT SHORTCUTS
+========================================= */
+
+.footer-shortcuts {
+    display: flex;
+    align-items: center;
+
+    height: 100%;
+
+    gap: 12px;
+}
+
+.footer-shortcut {
+    display: flex;
+    align-items: center;
+
+    gap: 6px;
+
+    white-space: nowrap;
+
+    color: #4b5751;
+
+    font-size: 9.5px;
+}
+
+.footer-shortcut svg {
+    color: #4d5a54;
+}
+
+.footer-shortcut b {
+    color: #26352e;
+
+    font-weight: 750;
+}
+
+
+/* =========================================
+   DIVIDERS
+========================================= */
+
+.footer-divider {
+    width: 1px;
+    height: 17px;
+
+    background: #d9dfdc;
+
+    flex-shrink: 0;
+}
+
+
+/* =========================================
+   RIGHT STATUS
+========================================= */
+
+.footer-status {
+    display: flex;
+    align-items: center;
+
+    height: 100%;
+
+    gap: 12px;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   INFO
+========================================= */
+
+.footer-info {
+    display: flex;
+    align-items: center;
+
+    gap: 6px;
+
+    color: #3e4a44;
+
+    font-size: 9.5px;
+}
+
+.footer-info svg {
+    color: #52605a;
+}
+
+
+/* =========================================
+   ONLINE
+========================================= */
+
+.footer-online {
+    display: flex;
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 4px 9px;
+
+    border-radius: 15px;
+
+    font-size: 9.5px;
+    font-weight: 600;
+}
+
+.footer-online.online {
+    color: #177443;
+
+    background: #e8f8ef;
+}
+
+.footer-online.offline {
+    color: #b33a32;
+
+    background: #fcebea;
+}
+
+.footer-status-dot {
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: #17a15a;
+}
+
+.footer-online.offline .footer-status-dot {
+    background: #d3443b;
+}
+
+
+/* =========================================
+   DATE & TIME
+========================================= */
+
+.footer-datetime {
+    display: flex;
+    align-items: center;
+
+    gap: 6px;
+
+    color: #56615c;
+
+    font-size: 9.5px;
+}
+
+.footer-datetime svg {
+    color: #53615a;
+}
+
+.footer-datetime strong {
+    color: #35413b;
+
+    font-weight: 700;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1100px) {
+
+    .footer-shortcuts {
+        gap: 8px;
+    }
+
+    .footer-status {
+        gap: 8px;
+    }
+
+    .footer-shortcut:nth-child(n + 7) {
+        display: none;
+    }
+}
+
+
+@media (max-width: 850px) {
+
+    .footer-shortcuts {
+        display: none;
+    }
+
+    .footer-status {
+        width: 100%;
+
+        justify-content: space-between;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .footer-status .footer-divider,
+    .footer-datetime svg,
+    .footer-datetime span:first-of-type {
+        display: none;
+    }
+
+    .footer-info svg {
+        display: none;
+    }
+
+    .footer-status {
+        gap: 6px;
+    }
+}

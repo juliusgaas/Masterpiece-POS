@@ -6,12 +6,13 @@ import { useEffect, useState } from "react";
 import ProductGrid from "../components/ProductGrid/ProductGrid";
 import Pagination from "../components/Pagination/Pagination";
 import Cart from "../components/Cart/Cart";
+import Footer from "../components/Footer/footer";
 
 
 
 function NewSale() {
     const online = useOnlineStatus();
-   
+
     const [products, setProducts] = useState<any[]>([]);
     const [search, setSearch] = useState("");
     const [page, setPage] = useState(1);
@@ -19,7 +20,7 @@ function NewSale() {
 
     const PAGE_SIZE = 12;
 
-    
+
 
     // Fetch products and update local database
     useEffect(() => {
@@ -40,9 +41,9 @@ function NewSale() {
         await loadProducts(prev);
     };
 
-    const syncProductsOnline =async ()=>{
-        try{
-              // Online Sync
+    const syncProductsOnline = async () => {
+        try {
+            // Online Sync
             if (online) {
                 const response: any = await ProductService.getProducts();
                 if (response.data.success) {
@@ -51,7 +52,7 @@ function NewSale() {
                     loadProducts(page);
                 }
             }
-        }catch(error){
+        } catch (error) {
             console.error(error);
         }
     }
@@ -60,13 +61,13 @@ function NewSale() {
 
         try {
             const offset = (page - 1) * PAGE_SIZE;
-          
+
             // Load from IndexedDB
-             const localProducts = await db.products
-                    .orderBy("name")
-                    .offset(offset)
-                    .limit(PAGE_SIZE)
-                    .toArray();
+            const localProducts = await db.products
+                .orderBy("name")
+                .offset(offset)
+                .limit(PAGE_SIZE)
+                .toArray();
 
             setProducts(localProducts);
 
@@ -76,13 +77,13 @@ function NewSale() {
     };
 
 
-     // Search Products
+    // Search Products
     const searchProducts = async (keyword: string) => {
         setSearch(keyword);
         if (!keyword.trim()) {
             const all = await db.products
-            .limit(PAGE_SIZE)
-            .toArray();
+                .limit(PAGE_SIZE)
+                .toArray();
             setProducts(all);
             return;
         }
@@ -186,17 +187,17 @@ function NewSale() {
     return (
         <div className="app">
 
-           
+
             <div className="container-fluid">
                 <div className="row content-container" style={{ paddingTop: 20 }}>
                     <div className="col-md-8">
-                        <SearchBar 
+                        <SearchBar
                             value={search}
                             onChange={searchProducts}
                         />
 
                         <div className="row mt-5">
-                             <ProductGrid
+                            <ProductGrid
                                 products={products}
                                 onSelect={addToCart}
                             />
@@ -210,36 +211,30 @@ function NewSale() {
                             onNext={nextPage}
                         />
 
-                        <div className="col-md-12 ">
-                            <div className="card shadow" >
-                                <div className="card-body text-primary">
-                                    F8 - Quotations  | F9 - Checkout | F10 - Clear Cart | Esc - Close Checkout
-                                </div>
-                            </div>
-                        </div>
-                       
-                            
+
+
+
                     </div>
                     {/* Recent Sales */}
                     <div className="col-md-4">
-                      
-                           
-                                <Cart
-                                    items={cart}
-                                    onIncrease={increaseQty}
-                                    onDecrease={decreaseQty}
-                                    onRemove={removeItem}
-                                    onClear={() => setCart([])}
-                                />
-                           
-                        
-                    </div>
 
+
+                        <Cart
+                            items={cart}
+                            onIncrease={increaseQty}
+                            onDecrease={decreaseQty}
+                            onRemove={removeItem}
+                            onClear={() => setCart([])}
+                        />
+
+
+                    </div>
+                     <Footer online={online} />
                 </div>
             </div>
         </div>
     );
 }
-                  
-        
+
+
 export default NewSale;

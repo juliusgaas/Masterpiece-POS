@@ -1,8 +1,5 @@
-.product-card:hover {
-    /* background-image: url('../../assets/icons8-box-64.png'); */
-    /* background-size: auto;
-    background-position: top right;
-    background-repeat: no-repeat; */
+/* .product-card:hover {
+   
     cursor: pointer;
    
 }
@@ -16,4 +13,282 @@
     background-repeat: no-repeat;
     opacity: 0.2;
     pointer-events: none;
+} */
+
+.product-card {
+    width: 100%;
+    min-height: 155px;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 9px 10px 8px;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+
+    border: 1px solid #e4e8e6;
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        border-color 0.15s ease;
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    overflow: hidden;
+}
+
+
+/* =========================================
+   HOVER
+========================================= */
+
+.product-card:hover {
+    transform: translateY(-2px);
+
+    border-color: #b8d8c7;
+
+    box-shadow:
+        0 5px 14px rgba(20, 50, 35, 0.10);
+}
+
+
+/* =========================================
+   IMAGE
+========================================= */
+
+.product-card-image {
+    width: 100%;
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 5px;
+
+    background: #fafbfa;
+
+    border-radius: 5px;
+
+    color: #aab3ae;
+
+    overflow: hidden;
+}
+
+.product-card-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    padding: 3px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   INFO
+========================================= */
+
+.product-card-info {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* PRODUCT NAME */
+
+.product-card-name {
+    overflow: hidden;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    color: #26332d;
+
+    font-size: 10.5px;
+    font-weight: 700;
+
+    line-height: 1.2;
+}
+
+
+/* SKU */
+
+.product-card-sku {
+    margin-top: 3px;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    color: #929b96;
+
+    font-size: 8.5px;
+}
+
+
+/* PRICE */
+
+.product-card-price {
+    margin-top: 7px;
+
+    color: #101c17;
+
+    font-size: 15px;
+    font-weight: 800;
+
+    line-height: 1;
+}
+
+
+/* =========================================
+   STOCK
+========================================= */
+
+.stock-badge {
+    width: fit-content;
+
+    display: flex;
+    align-items: center;
+
+    margin-top: 5px;
+
+    font-size: 8.5px;
+    font-weight: 600;
+}
+
+.stock-badge.available {
+    color: #21804f;
+}
+
+.stock-badge.out {
+    gap: 5px;
+
+    padding: 3px 7px;
+
+    border-radius: 20px;
+
+    color: #c92e2e;
+
+    background: #ffe9e9;
+}
+
+.stock-badge.out span {
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: #e33434;
+}
+
+
+/* =========================================
+   ADD BUTTON
+========================================= */
+
+.product-add-btn {
+    width: 100%;
+    height: 27px;
+
+    margin-top: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 5px;
+
+    border: 0;
+    border-radius: 5px;
+
+    background: #e8ebed;
+
+    color: #6c757d;
+
+    font-size: 10.5px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.15s ease;
+}
+
+.product-add-btn:hover {
+    background: #dff4e9;
+
+    color: #087844;
+}
+
+.product-add-btn:active {
+    transform: scale(0.98);
+}
+
+
+/* =========================================
+   OUT OF STOCK
+========================================= */
+
+.product-card.out-of-stock {
+    cursor: default;
+
+    opacity: 0.95;
+}
+
+.product-card.out-of-stock:hover {
+    transform: none;
+
+    border-color: #e4e8e6;
+
+    box-shadow: none;
+}
+
+.product-add-btn:disabled {
+    cursor: not-allowed;
+
+    background: #e1e4e6;
+
+    color: #969d9a;
+}
+
+.product-add-btn:disabled:hover {
+    background: #e1e4e6;
+
+    color: #969d9a;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .product-card {
+        min-height: 145px;
+    }
+
+    .product-card-image {
+        height: 62px;
+    }
+
+    .product-card-price {
+        font-size: 14px;
+    }
 }

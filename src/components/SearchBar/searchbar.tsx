@@ -1,56 +1,100 @@
-import { Search } from "lucide-react";
-
+import {
+    Search,
+    Barcode,
+    ScanBarcode,
+    Plus,
+} from "lucide-react";
+import "./SearchBar.css";
 
 interface Props {
     value: string;
     onChange: (value: string) => void;
+    onSearch?: () => void;
+    onScan?: () => void;
+    onQuickProduct?: () => void;
 }
 
-function SearchBar({ value, onChange }: Props) {
-    const TOKENS = {
-        ink: "#16241F",
-        inkSoft: "#25352D",
-        paper: "#F7F5EF",
-        paperDim: "#EEEAE0",
-        brass: "#C9A227",
-        brassDeep: "#A9860F",
-        leaf: "#2F6B4F",
-        rust: "#B5482D",
-        slate: "#5B6660",
-        line: "rgba(22,36,31,0.12)",
-    };
-    const FONT_BODY = "'Space Grotesk', sans-serif";
+function SearchBar({
+    value,
+    onChange,
+    onSearch,
+    onScan,
+    onQuickProduct,
+}: Props) {
 
     return (
-       <div style={{ position: "relative", marginBottom: 18, flexShrink: 0 }}>
-                     <Search
-                       size={16}
-                       style={{
-                         position: "absolute",
-                         left: 16,
-                         top: "50%",
-                         transform: "translateY(-50%)",
-                         opacity: 0.45,
-                       }}
-                     />
-                     <input
-                       className="mpos-input"
-                       value={value}
-                       onChange={(e) => onChange(e.target.value)}
-                       placeholder="Scan barcode or search product…"
-                       style={{
-                         width: "100%",
-                         padding: "13px 16px 13px 44px",
-                         borderRadius: 10,
-                         border: `1.5px solid ${TOKENS.line}`,
-                         background: "#fff",
-                         fontFamily: FONT_BODY,
-                         fontSize: 14.5,
-                         color: TOKENS.ink,
-                         outline: "none",
-                       }}
-                     />
-                   </div>
+        <div className="product-search">
+
+            {/* BARCODE MODE */}
+            <button
+                type="button"
+                className="barcode-btn"
+                title="Barcode Scanner"
+                onClick={onScan}
+            >
+                <Barcode size={18} />
+            </button>
+
+
+            {/* SEARCH INPUT */}
+            <div className="search-input-wrapper">
+
+                <Search
+                    className="search-icon"
+                    size={16}
+                />
+
+                <input
+                    value={value}
+                    onChange={(e) => onChange(e.target.value)}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            onSearch?.();
+                        }
+                    }}
+                    placeholder="Scan barcode or search product..."
+                />
+
+                <span className="shortcut">
+                    Ctrl + K
+                </span>
+
+            </div>
+
+
+            {/* SEARCH BUTTON */}
+            <button
+                type="button"
+                className="search-btn"
+                onClick={onSearch}
+            >
+                <Search size={17} />
+                <span>Search</span>
+            </button>
+
+
+            {/* SCAN */}
+            <button
+                type="button"
+                className="action-btn"
+                onClick={onScan}
+            >
+                <ScanBarcode size={17} />
+                <span>Scan</span>
+            </button>
+
+
+            {/* QUICK PRODUCT */}
+            <button
+                type="button"
+                className="action-btn"
+                onClick={onQuickProduct}
+            >
+                <Plus size={17} />
+                <span>Quick Product</span>
+            </button>
+
+        </div>
     );
 }
 

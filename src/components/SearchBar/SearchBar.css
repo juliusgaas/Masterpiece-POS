@@ -1,0 +1,271 @@
+.product-search {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 7px 8px;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e9e7;
+    border-radius: 8px;
+
+    box-shadow:
+        0 1px 3px rgba(20, 40, 30, 0.04);
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+}
+
+
+/* =========================================
+   BARCODE BUTTON
+========================================= */
+
+.barcode-btn {
+    width: 38px;
+    height: 38px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 0;
+    border-radius: 6px;
+
+    background: #f5f7f6;
+
+    color: #34413b;
+
+    cursor: pointer;
+
+    transition: all 0.15s ease;
+}
+
+.barcode-btn:hover {
+    background: #eaf5ef;
+    color: #087744;
+}
+
+
+/* =========================================
+   SEARCH INPUT
+========================================= */
+
+.search-input-wrapper {
+    height: 38px;
+
+    flex: 1;
+    min-width: 150px;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    border: 1px solid #dfe4e1;
+    border-radius: 6px;
+
+    background: #ffffff;
+
+    transition: border-color 0.15s ease;
+}
+
+.search-input-wrapper:focus-within {
+    border-color: #168653;
+
+    box-shadow:
+        0 0 0 2px rgba(22, 134, 83, 0.08);
+}
+
+
+.search-icon {
+    position: absolute;
+
+    left: 11px;
+
+    color: #7c8781;
+}
+
+
+.search-input-wrapper input {
+    width: 100%;
+    height: 100%;
+
+    box-sizing: border-box;
+
+    border: 0;
+    outline: none;
+
+    background: transparent;
+
+    padding: 0 75px 0 34px;
+
+    color: #26332d;
+
+    font-size: 11px;
+}
+
+.search-input-wrapper input::placeholder {
+    color: #9aa39f;
+}
+
+
+/* =========================================
+   CTRL K
+========================================= */
+
+.shortcut {
+    position: absolute;
+
+    right: 8px;
+
+    padding: 3px 7px;
+
+    border-radius: 5px;
+
+    background: #f2f4f3;
+
+    color: #8b9490;
+
+    font-size: 9px;
+    font-weight: 500;
+
+    pointer-events: none;
+}
+
+
+/* =========================================
+   SEARCH BUTTON
+========================================= */
+
+.search-btn {
+    height: 38px;
+
+    min-width: 94px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 0 15px;
+
+    border: 0;
+    border-radius: 6px;
+
+    background: #078548;
+
+    color: #ffffff;
+
+    font-size: 10.5px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    transition: background 0.15s ease;
+}
+
+.search-btn:hover {
+    background: #06723f;
+}
+
+
+/* =========================================
+   OTHER ACTION BUTTONS
+========================================= */
+
+.action-btn {
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 0 13px;
+
+    white-space: nowrap;
+
+    background: #ffffff;
+
+    border: 1px solid #dce2df;
+    border-radius: 6px;
+
+    color: #334039;
+
+    font-size: 10.5px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.15s ease;
+}
+
+.action-btn:hover {
+    background: #f6faf8;
+
+    border-color: #b9cfc3;
+
+    color: #087744;
+}
+
+.action-btn svg {
+    flex-shrink: 0;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+    .product-search {
+        gap: 7px;
+    }
+
+    .action-btn span {
+        display: none;
+    }
+
+    .action-btn {
+        width: 40px;
+        padding: 0;
+    }
+}
+
+
+@media (max-width: 650px) {
+
+    .barcode-btn {
+        display: none;
+    }
+
+    .search-btn span {
+        display: none;
+    }
+
+    .search-btn {
+        min-width: 40px;
+        width: 40px;
+        padding: 0;
+    }
+
+    .shortcut {
+        display: none;
+    }
+}

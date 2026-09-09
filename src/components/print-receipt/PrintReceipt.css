@@ -9,7 +9,7 @@
      * except the receipt.
      */
 
-    body > *:not(.receipt-print) {
+    body>*:not(.receipt-print) {
         display: none !important;
     }
 
@@ -19,7 +19,7 @@
      * printable element.
      */
 
-    body > .receipt-print {
+    body>.receipt-print {
 
         display: block !important;
 
@@ -152,4 +152,3 @@
         margin: 0;
     }
 }
-

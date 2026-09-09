@@ -9,7 +9,7 @@ export default function Login() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
-     
+
     const navigate = useNavigate();
 
     const handleLogin = async (e: React.FormEvent) => {
@@ -23,10 +23,10 @@ export default function Login() {
                 password,
             });
 
-            
+
 
             localStorage.setItem("token", response.data.token);
-            if(response.data.success){
+            if (response.data.success) {
                 await db.users.put({
                     token: response.data.token
                 });
@@ -40,7 +40,7 @@ export default function Login() {
             console.error("Login error:", err);
             if (axios.isAxiosError(err) && err.response) {
                 setError(err.response.data?.message || "Invalid username or password.");
-               
+
             } else {
                 setError("Unable to connect to server. Please try again.");
             }

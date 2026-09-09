@@ -1,9 +1,13 @@
-import './ProductsCard.css'
+import "./ProductsCard.css";
+import { Plus, Package } from "lucide-react";
+
 interface Product {
     id: number;
     name: string;
     selling_price: string;
     stock_qty: number;
+    sku?: string;
+    image?: string;
 }
 
 interface Props {
@@ -11,22 +15,87 @@ interface Props {
     onClick: (product: Product) => void;
 }
 
-export default function ProductCard({ product, onClick }: Props) {
+export default function ProductCard({
+    product,
+    onClick,
+}: Props) {
+
+    const isOutOfStock = product.stock_qty <= 0;
+
     return (
         <div
-            className="card bg-success text-white product-card h-100 shadow"
-            onClick={() => onClick(product)}
+            className={`product-card ${isOutOfStock ? "out-of-stock" : ""
+                }`}
         >
-            <div className="card-body">
-                <h6>{product.name}</h6>
 
-                <div className="fw-bold ">
-                    ₱{Number(product.selling_price).toFixed(2)}
+            {/* PRODUCT IMAGE */}
+            <div className="product-card-image">
+
+                {product.image ? (
+                    <img
+                        src={product.image}
+                        alt={product.name}
+                    />
+                ) : (
+                    <Package size={42} />
+                )}
+
+            </div>
+
+
+            {/* PRODUCT INFO */}
+            <div className="product-card-info">
+
+                <div className="product-card-name">
+                    {product.name}
                 </div>
 
-                <small>Stock: {product.stock_qty}</small>
-               
+                <div className="product-card-sku">
+                    SKU: {product.sku || product.id}
+                </div>
+
+                <div className="product-card-price">
+                    ₱
+                    {Number(
+                        product.selling_price
+                    ).toLocaleString("en-PH", {
+                        minimumFractionDigits: 2,
+                    })}
+                </div>
+
+
+                {/* STOCK */}
+                {isOutOfStock ? (
+
+                    <div className="stock-badge out">
+                        <span></span>
+                        Out of Stock
+                    </div>
+
+                ) : (
+
+                    <div className="stock-badge available">
+                        Stock: {product.stock_qty}
+                    </div>
+
+                )}
+
             </div>
+
+
+            {/* ADD BUTTON */}
+            <button
+                className="product-add-btn"
+                disabled={isOutOfStock}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    onClick(product);
+                }}
+            >
+                <Plus size={15} />
+                Add
+            </button>
+
         </div>
     );
 }
