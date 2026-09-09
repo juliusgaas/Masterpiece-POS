@@ -12,7 +12,6 @@ import {
     CreditCard,
     MoreHorizontal,
     Pause,
-    X,
     Percent,
     ChevronDown,
 } from "lucide-react";
