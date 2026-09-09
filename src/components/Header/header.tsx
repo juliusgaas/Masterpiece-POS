@@ -20,7 +20,7 @@ function Header({
       <div className="header-left">
         <div className="brand">
           <div className="brand-logo">
-            <img src="/src/assets/react.svg" alt="Logo" />
+            <img src="../../react.svg" alt="Logo" />
             {/* <div className="logo-shape">
               <img src="../../assets/icons8-box-64.png" alt="Logo" />
               <span></span>
