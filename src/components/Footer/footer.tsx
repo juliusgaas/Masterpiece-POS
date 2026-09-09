@@ -20,8 +20,7 @@ export default function Footer({
     terminal = "POS-01",
     online = true,
     username = "Admin",
-    date = "Sep 8, 2026",
-    time = "10:24 AM",
+    date = "Sep 8, 2026"
 }: FooterProps) {
 
     return (
