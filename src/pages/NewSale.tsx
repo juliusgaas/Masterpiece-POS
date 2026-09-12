@@ -7,6 +7,7 @@ import ProductGrid from "../components/ProductGrid/ProductGrid";
 import Pagination from "../components/Pagination/Pagination";
 import Cart from "../components/Cart/Cart";
 import Footer from "../components/Footer/footer";
+import ProductTable from "../components/table-grid-product/page";
 
 
 
@@ -17,6 +18,7 @@ function NewSale() {
     const [search, setSearch] = useState("");
     const [page, setPage] = useState(1);
     const [cart, setCart] = useState<any[]>([]);
+const [viewMode, setViewMode] = useState<"grid" | "table">("grid");
 
     const PAGE_SIZE = 12;
 
@@ -196,11 +198,49 @@ function NewSale() {
                             onChange={searchProducts}
                         />
 
-                        <div className="row mt-5">
-                            <ProductGrid
-                                products={products}
-                                onSelect={addToCart}
-                            />
+                        {/* VIEW SWITCH */}
+                        <div className="d-flex justify-content-end mt-3 mb-3">
+                            <div className="btn-group" role="group">
+
+                                <button
+                                    type="button"
+                                    className={`btn btn-sm ${viewMode === "grid"
+                                            ? "btn-success"
+                                            : "btn-outline-secondary"
+                                        }`}
+                                    onClick={() => setViewMode("grid")}
+                                    title="Grid View"
+                                >
+                                    ▦
+                                </button>
+
+                                <button
+                                    type="button"
+                                    className={`btn btn-sm ${viewMode === "table"
+                                            ? "btn-success"
+                                            : "btn-outline-secondary"
+                                        }`}
+                                    onClick={() => setViewMode("table")}
+                                    title="Table View"
+                                >
+                                    ☷
+                                </button>
+
+                            </div>
+                        </div>
+
+                        <div className="mt-3">
+                            {viewMode === "grid" ? (
+                                <ProductGrid
+                                    products={products}
+                                    onSelect={addToCart}
+                                />
+                            ) : (
+                                <ProductTable
+                                    products={products}
+                                    onSelect={addToCart}
+                                />
+                            )}
                         </div>
 
                         <Pagination
@@ -229,7 +269,7 @@ function NewSale() {
 
 
                     </div>
-                     <Footer online={online} />
+                    <Footer online={online} />
                 </div>
             </div>
         </div>
