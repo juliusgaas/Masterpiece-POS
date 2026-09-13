@@ -83,7 +83,7 @@ class MasterpiecePOSDatabase extends Dexie {
             users: "token",
 
             products: `
-                id,
+                ++id,
                 item_code,
                 name,
                 description,
@@ -103,10 +103,10 @@ class MasterpiecePOSDatabase extends Dexie {
                 updated_at
             `,
 
-            customers: "id",
+            customers: "++id",
 
             sales: `
-                id,
+                ++id,
                 user_id,
                 invoice_no,
                 customer_id,
@@ -118,7 +118,7 @@ class MasterpiecePOSDatabase extends Dexie {
             `,
 
             sale_items: `
-                id,
+                ++id,
                 sale_id,
                 product_id,
                 item_code,
@@ -128,13 +128,37 @@ class MasterpiecePOSDatabase extends Dexie {
             `,
 
             payments: `
-                id,
+                ++id,
                 sale_id,
                 payment_method,
                 cash_received,
                 change,
                 created_at,
                 updated_at
+            `,
+            held_sales: `
+                ++id,
+                hold_number,
+                customer_id,
+                cashier_id,
+                branch_id,
+                subtotal,
+                discount,
+                tax,
+                total,
+                notes,
+                status,
+                held_at,
+                expires_at
+            `,
+            held_sale_items:`
+                ++id,
+                held_sale_id,
+                product_id,
+                quantity,
+                unit_price,
+                discount,
+                subtotal 
             `
         });
     }
