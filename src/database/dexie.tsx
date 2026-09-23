@@ -65,6 +65,42 @@ export interface Payment {
     updated_at?: string;
 }
 
+export interface HeldSale {
+    id: number;
+    hold_number: string;
+
+    customer_id?: number;
+    cashier_id?: number;
+    branch_id?: number;
+
+    subtotal: number;
+    discount: number;
+    tax: number;
+    total: number;
+
+    notes?: string;
+
+    status: "HELD" | "RETRIEVED" | "CANCELLED";
+
+    held_at: string;
+    expires_at?: string;
+}
+
+export interface HeldSaleItem {
+    id: number;
+    held_sale_id: number;
+
+    product_id: number;
+
+    quantity: number;
+    unit_price: number;
+
+    discount: number;
+    subtotal: number;
+}
+
+
+
 class MasterpiecePOSDatabase extends Dexie {
 
     users!: Table<User, string>;
@@ -73,6 +109,8 @@ class MasterpiecePOSDatabase extends Dexie {
     sales!: Table<Sale, number>;
     sale_items!: Table<SaleItem, number>;
     payments!: Table<Payment, number>;
+    held_sales!: Table<HeldSale, number>;
+    held_sale_items!: Table<HeldSaleItem, number>;
 
     constructor() {
 
@@ -135,30 +173,26 @@ class MasterpiecePOSDatabase extends Dexie {
                 change,
                 created_at,
                 updated_at
-            `,
+            `
+        });
+
+        // Hold Sale
+        this.version(2).stores({
             held_sales: `
                 ++id,
-                hold_number,
+                &hold_number,
                 customer_id,
                 cashier_id,
                 branch_id,
-                subtotal,
-                discount,
-                tax,
-                total,
-                notes,
                 status,
                 held_at,
                 expires_at
             `,
-            held_sale_items:`
+
+            held_sale_items: `
                 ++id,
                 held_sale_id,
-                product_id,
-                quantity,
-                unit_price,
-                discount,
-                subtotal 
+                product_id
             `
         });
     }

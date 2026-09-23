@@ -265,6 +265,9 @@ const [viewMode, setViewMode] = useState<"grid" | "table">("grid");
                             onDecrease={decreaseQty}
                             onRemove={removeItem}
                             onClear={() => setCart([])}
+                            onRestoreCart={(restoredItems) => {
+                                setCart(restoredItems);
+                            }}
                         />
 
 

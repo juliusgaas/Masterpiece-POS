@@ -15,6 +15,8 @@ import {
     Percent,
     ChevronDown,
 } from "lucide-react";
+import { createHoldSale } from "../../services/HoldSaleServices";
+import HeldSalesModal from "../HeldSale/HeldSalesModal";
 
 interface CartItem {
     id: number;
@@ -41,6 +43,7 @@ interface CartProps {
     onDecrease: (id: number) => void;
     onRemove: (id: number) => void;
     onClear: () => void;
+    onRestoreCart?: (items: CartItem[]) => void;
 }
 
 export default function Cart({
@@ -49,9 +52,10 @@ export default function Cart({
     onDecrease,
     onRemove,
     onClear,
+    onRestoreCart,
 }: CartProps) {
     const navigate = useNavigate();
-
+    const [showHeldSales, setShowHeldSales] = useState(false);
     const [showCheckout, setShowCheckout] = useState(false);
     const [saleToPrint, setSaleToPrint] = useState<Sale | null>(null);
 
@@ -116,6 +120,73 @@ export default function Cart({
         navigate("/quotation");
     };
 
+    const handleHoldSale = async () => {
+
+        try {
+
+            if (items.length === 0) {
+                alert("Cart is empty.");
+                return;
+            }
+
+            const subtotal = items.reduce(
+                (sum, item) =>
+                    sum +
+                    Number(item.selling_price) * item.quantity,
+                0
+            );
+
+            const itemsForHold = items.map(item => ({
+                product_id: item.id,
+                quantity: item.quantity,
+                unit_price: Number(item.selling_price),
+                discount: 0,
+                subtotal:
+                    Number(item.selling_price) * item.quantity
+            }));
+
+            const result = await createHoldSale({
+
+                branch_id: 1,
+
+                subtotal,
+
+                discount: 0,
+
+                tax: 0,
+
+                total: subtotal,
+
+                notes: "",
+
+                items: itemsForHold
+            });
+
+            console.log(
+                "Sale held:",
+                result
+            );
+
+            // Clear cart
+            onClear();
+
+            alert(
+                `${result.hold_number} saved successfully`
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Hold sale error:",
+                error
+            );
+
+            alert(
+                "Failed to hold sale."
+            );
+        }
+    };
+
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === "F8") {
@@ -166,6 +237,17 @@ export default function Cart({
 
                         <button
                             className="cart-top-btn"
+                            onClick={() => setShowHeldSales(true)}
+                            title="Held Sale"
+                        >
+                            <ShoppingCart size={15} />
+                            <span>Held Sale {items.length}</span>
+                        </button>
+
+                        <button
+                            className="cart-top-btn"
+                            onClick={handleHoldSale}
+                            disabled={items.length === 0}
                             title="Hold Sale"
                         >
                             <Pause size={15} />
@@ -343,7 +425,7 @@ export default function Cart({
                                 {/* OUM */}
 
                                 <div className="product-oum">
-                                   <span>pcs</span> 
+                                    <span>pcs</span>
                                 </div>
 
                                 {/* TOTAL */}
@@ -520,6 +602,55 @@ export default function Cart({
                     onPrinted={() => {
                         onClear();
                         setSaleToPrint(null);
+                    }}
+                />
+            )}
+
+            {showHeldSales && (
+                <HeldSalesModal
+                    show={showHeldSales}
+                    onClose={() => setShowHeldSales(false)}
+                    onRetrieve={async (_sale, items) => {
+                        try {
+                            const restoredCart: CartItem[] =
+                                await Promise.all(
+                                    items.map(async (item) => {
+                                        return {
+                                            id: item.product_id,
+
+                                            name: `Product ${item.product_id}`,
+
+                                            selling_price:
+                                                String(
+                                                    item.unit_price
+                                                ),
+
+                                            quantity:
+                                                item.quantity,
+
+                                            subtotal:
+                                                item.subtotal,
+
+                                            sku: String(item.product_id),
+                                        };
+                                    })
+                                );
+
+                            onRestoreCart?.(
+                                restoredCart
+                            );
+
+                        } catch (error) {
+
+                            console.error(
+                                "Failed to restore held sale:",
+                                error
+                            );
+
+                            alert(
+                                "Failed to restore held sale."
+                            );
+                        }
                     }}
                 />
             )}
