@@ -14,7 +14,7 @@ interface HeldSaleRowProps {
     ) => void;
 }
 
-function HeldSaleRow({
+export default function HeldSaleRow({
     sale,
     onRetrieve,
     onCancel
