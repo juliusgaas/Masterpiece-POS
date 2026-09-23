@@ -241,7 +241,7 @@ export default function Cart({
                             title="Held Sale"
                         >
                             <ShoppingCart size={15} />
-                            <span>Held Sale {items.length}</span>
+                            <span>Held Sale</span>
                         </button>
 
                         <button
