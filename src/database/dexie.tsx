@@ -1,4 +1,5 @@
 import Dexie, { type Table } from "dexie";
+import type { Customer } from "../types/customer";
 
 export interface User {
     token: string;
@@ -25,12 +26,6 @@ export interface Product {
     is_active?: number;
     created_at?: string;
     updated_at?: string;
-}
-
-export interface Customer {
-    id: number;
-    name?: string;
-    [key: string]: any;
 }
 
 export interface Sale {
@@ -105,7 +100,7 @@ class MasterpiecePOSDatabase extends Dexie {
 
     users!: Table<User, string>;
     products!: Table<Product, number>;
-    customers!: Table<Customer, number>;
+    customers!: Table<Customer, string>;
     sales!: Table<Sale, number>;
     sale_items!: Table<SaleItem, number>;
     payments!: Table<Payment, number>;
@@ -141,7 +136,7 @@ class MasterpiecePOSDatabase extends Dexie {
                 updated_at
             `,
 
-            customers: "++id",
+           customers: "++id,first_name,last_name,mobile,email",
 
             sales: `
                 ++id,

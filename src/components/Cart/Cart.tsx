@@ -17,6 +17,8 @@ import {
 } from "lucide-react";
 import { createHoldSale } from "../../services/HoldSaleServices";
 import HeldSalesModal from "../HeldSale/HeldSalesModal";
+import type { Customer } from "../../types/customer";
+import AddCustomerModal from "../modal/AddCustomer/AddCustomer";
 
 interface CartItem {
     id: number;
@@ -63,6 +65,15 @@ export default function Cart({
     const [discountType, setDiscountType] = useState<"percent" | "amount">(
         "percent"
     );
+    const [showCustomerModal, setShowCustomerModal] =
+    useState(false);
+
+    const [selectedCustomer, setSelectedCustomer] =
+        useState<Customer | null>(null);
+
+    const handleCustomerSaved = (customer: Customer) => {
+        setSelectedCustomer(customer);
+    };
 
     const [taxRate] = useState<number>(0);
 
@@ -291,7 +302,7 @@ export default function Cart({
                         <ChevronDown size={14} />
                     </button>
 
-                    <button className="add-customer-btn">
+                    <button className="add-customer-btn" onClick={() => setShowCustomerModal(true)}>
                         <Plus size={17} />
                         <span>Add Customer</span>
                     </button>
@@ -606,54 +617,60 @@ export default function Cart({
                 />
             )}
 
-            {showHeldSales && (
-                <HeldSalesModal
-                    show={showHeldSales}
-                    onClose={() => setShowHeldSales(false)}
-                    onRetrieve={async (_sale, items) => {
-                        try {
-                            const restoredCart: CartItem[] =
-                                await Promise.all(
-                                    items.map(async (item) => {
-                                        return {
-                                            id: item.product_id,
+            
+            <HeldSalesModal
+                show={showHeldSales}
+                onClose={() => setShowHeldSales(false)}
+                onRetrieve={async (_sale, items) => {
+                    try {
+                        const restoredCart: CartItem[] =
+                            await Promise.all(
+                                items.map(async (item) => {
+                                    return {
+                                        id: item.product_id,
 
-                                            name: `Product ${item.product_id}`,
+                                        name: `Product ${item.product_id}`,
 
-                                            selling_price:
-                                                String(
-                                                    item.unit_price
-                                                ),
+                                        selling_price:
+                                            String(
+                                                item.unit_price
+                                            ),
 
-                                            quantity:
-                                                item.quantity,
+                                        quantity:
+                                            item.quantity,
 
-                                            subtotal:
-                                                item.subtotal,
+                                        subtotal:
+                                            item.subtotal,
 
-                                            sku: String(item.product_id),
-                                        };
-                                    })
-                                );
-
-                            onRestoreCart?.(
-                                restoredCart
+                                        sku: String(item.product_id),
+                                    };
+                                })
                             );
 
-                        } catch (error) {
+                        onRestoreCart?.(
+                            restoredCart
+                        );
 
-                            console.error(
-                                "Failed to restore held sale:",
-                                error
-                            );
+                    } catch (error) {
 
-                            alert(
-                                "Failed to restore held sale."
-                            );
-                        }
-                    }}
-                />
-            )}
+                        console.error(
+                            "Failed to restore held sale:",
+                            error
+                        );
+
+                        alert(
+                            "Failed to restore held sale."
+                        );
+                    }
+                }}
+            />
+          
+
+            <AddCustomerModal
+                show={showCustomerModal}
+                onClose={() => setShowCustomerModal(false)}
+                onSaved={handleCustomerSaved}
+            />
         </>
     );
 }
