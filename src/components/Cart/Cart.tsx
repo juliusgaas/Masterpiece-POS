@@ -68,8 +68,7 @@ export default function Cart({
     const [showCustomerModal, setShowCustomerModal] =
     useState(false);
 
-    const [selectedCustomer, setSelectedCustomer] =
-        useState<Customer | null>(null);
+    const [, setSelectedCustomer] = useState<Customer | null>(null);
 
     const handleCustomerSaved = (customer: Customer) => {
         setSelectedCustomer(customer);
