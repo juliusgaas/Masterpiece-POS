@@ -19,6 +19,7 @@ import { createHoldSale } from "../../services/HoldSaleServices";
 import HeldSalesModal from "../HeldSale/HeldSalesModal";
 import type { Customer } from "../../types/customer";
 import AddCustomerModal from "../modal/AddCustomer/AddCustomer";
+import CustomerSelectModal from "../modal/CustomerSelectModal";
 
 interface CartItem {
     id: number;
@@ -61,15 +62,16 @@ export default function Cart({
     const [showCheckout, setShowCheckout] = useState(false);
     const [saleToPrint, setSaleToPrint] = useState<Sale | null>(null);
 
+    const [showCustomerModal, setShowCustomerModal] =
+  useState(false);
+
+    const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
+    const [showAddCustomerModal, setShowAddCustomerModal] = useState(false);
+
     const [discount, setDiscount] = useState<number>(0);
     const [discountType, setDiscountType] = useState<"percent" | "amount">(
         "percent"
     );
-    const [showCustomerModal, setShowCustomerModal] =
-    useState(false);
-
-    const [, setSelectedCustomer] = useState<Customer | null>(null);
-
     const handleCustomerSaved = (customer: Customer) => {
         setSelectedCustomer(customer);
     };
@@ -127,7 +129,7 @@ export default function Cart({
     };
 
     const goToQuotation = () => {
-        navigate("/quotation");
+        navigate("/quotations");
     };
 
     const handleHoldSale = async () => {
@@ -284,7 +286,6 @@ export default function Cart({
                     </div>
                 </div>
 
-
                 {/* =========================================
                     CUSTOMER
                 ========================================= */}
@@ -296,12 +297,15 @@ export default function Cart({
                         <span>Customer</span>
                     </div>
 
-                    <button className="customer-select">
-                        <span>Walk-in Customer</span>
+                    <button className="customer-select" onClick={() => setShowCustomerModal(true)}>
+                        <span>{selectedCustomer
+                            ? `${selectedCustomer.first_name} ${selectedCustomer.last_name}`
+                            : "Select Customer"}
+                        </span>
                         <ChevronDown size={14} />
                     </button>
 
-                    <button className="add-customer-btn" onClick={() => setShowCustomerModal(true)}>
+                    <button className="add-customer-btn" onClick={() => setShowAddCustomerModal(true)}>
                         <Plus size={17} />
                         <span>Add Customer</span>
                     </button>
@@ -666,10 +670,22 @@ export default function Cart({
           
 
             <AddCustomerModal
-                show={showCustomerModal}
-                onClose={() => setShowCustomerModal(false)}
+                show={showAddCustomerModal}
+                onClose={() => setShowAddCustomerModal(false)}
                 onSaved={handleCustomerSaved}
             />
+
+            <CustomerSelectModal
+                show={showCustomerModal}
+                onClose={() => setShowCustomerModal(false)}
+                onSelect={(customer) => {
+                    setSelectedCustomer(customer);
+                }}
+                onAddCustomer={() => {
+                    setShowCustomerModal(false);
+                    setShowAddCustomerModal(true);
+                }}
+                />
         </>
     );
 }

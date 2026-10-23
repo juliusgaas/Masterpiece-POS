@@ -159,31 +159,6 @@ export default function HeldSalesModal({
 
     }, [show]);
 
-    // const formatCurrency = (
-    //     value: number
-    // ) => {
-
-    //     return new Intl.NumberFormat(
-    //         "en-PH",
-    //         {
-    //             style: "currency",
-    //             currency: "PHP"
-    //         }
-    //     ).format(value);
-
-    // };
-
-    // const formatDate = (
-    //     value: string
-    // ) => {
-
-    //     return new Date(value)
-    //         .toLocaleString("en-PH", {
-    //             dateStyle: "medium",
-    //             timeStyle: "short"
-    //         });
-
-    // };
 
     const handleRetrieve = async (
         sale: HeldSale

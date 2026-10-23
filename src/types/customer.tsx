@@ -6,6 +6,7 @@ export interface Customer {
   email: string;
   address: string;
   sync_status?: "pending" | "synced";
+  name?: string;
 }
 
 export type CreateCustomerPayload = Omit<

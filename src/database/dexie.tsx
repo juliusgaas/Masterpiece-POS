@@ -94,6 +94,48 @@ export interface HeldSaleItem {
     subtotal: number;
 }
 
+export type QuotationStatus =
+    | "Draft"
+    | "Sent"
+    | "Accepted"
+    | "Expired"
+    | "Cancelled";
+
+
+export interface QuotationLineItem {
+    id: number;
+    sku: string;
+    product: string;
+    description: string;
+    qty: number;
+    unitPrice: number;
+    discount: number;
+}
+
+export interface Quotation {
+    id?: number;
+    number: string;
+    customer: string;
+    date: string;
+    validUntil: string;
+    amount: number;
+    status: QuotationStatus;
+    reference?: string;
+
+    // Quotation details
+    items?: QuotationLineItem[];
+    subtotal?: number;
+    discount?: number;
+    notes?: string;
+    salesperson?: string;
+    terms?: string;
+
+    sync_status?: string;
+    created_at?: string;
+    updated_at?: string;
+}
+
+
 
 
 class MasterpiecePOSDatabase extends Dexie {
@@ -190,6 +232,25 @@ class MasterpiecePOSDatabase extends Dexie {
                 product_id
             `
         });
+
+        // Quotation
+        
+        this.version(3).stores({
+            quotations: `
+                ++id,
+                &number,
+                customer,
+                date,
+                validUntil,
+                amount,
+                status,
+                reference,
+                sync_status,
+                created_at,
+                updated_at
+            `
+        });
+
     }
 }
 

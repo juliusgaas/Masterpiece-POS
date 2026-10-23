@@ -2,8 +2,9 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./pages/login";
 import NewSale from "./pages/NewSale";
 import ProtectedRoute from "./routes/ProtectedRoute";
-import QuotationPage from "./pages/quotation/quotation-page";
+import QuotationPage from "./pages/quotation/page";
 import MainLayout from "./components/MainLayout";
+import QuotationDetails from "./components/quotation/quotation-page";
 
 function App() {
   return (
@@ -26,14 +27,23 @@ function App() {
 
                 {/* POS */}
                 <Route
-                path="/new-sale"
-                element={<NewSale />}
+                    path="/new-sale"
+                    element={<NewSale />}
                 />
 
                 {/* Quotation */}
                 <Route
-                path="/quotation"
-                element={<QuotationPage />}
+                    path="/quotations"
+                    element={<QuotationPage />}
+                />
+
+                <Route
+                    path="/quotations/create"
+                    element={<QuotationDetails />}
+                />
+                <Route
+                    path="/quotations/:id/edit"
+                    element={<QuotationDetails />}
                 />
 
             </Route>
