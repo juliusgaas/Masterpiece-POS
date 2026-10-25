@@ -67,7 +67,6 @@ const [viewMode, setViewMode] = useState<"grid" | "table">("grid");
             // Load from IndexedDB
             const localProducts = await db.products
                 .orderBy("name")
-                .filter((product) => product.is_active === undefined || Number(product.is_active) === 1)
                 .offset(offset)
                 .limit(PAGE_SIZE)
                 .toArray();
@@ -84,8 +83,9 @@ const [viewMode, setViewMode] = useState<"grid" | "table">("grid");
     const searchProducts = async (keyword: string) => {
         setSearch(keyword);
         if (!keyword.trim()) {
+             const offset = (page - 1) * PAGE_SIZE;
             const all = await db.products
-                .filter((product) => product.is_active === undefined || Number(product.is_active) === 1)
+                .offset(offset)
                 .limit(PAGE_SIZE)
                 .toArray();
             setProducts(all);

@@ -13,7 +13,7 @@ export default function ProductGrid({
     const activeProducts = products.filter(
         (product) =>
             product.is_active === undefined ||
-            Number(product.is_active) === 1
+            Number(product.is_active) === 0
     );
 
     if (activeProducts.length === 0) {
