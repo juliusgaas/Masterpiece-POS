@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import Login from "./pages/login";
+import Login from "./pages/login/login";
 import NewSale from "./pages/NewSale";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import QuotationPage from "./pages/quotation/page";
